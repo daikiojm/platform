@@ -84,4 +84,12 @@ describe('Store Schematic', () => {
     const content = getFileContent(tree, '/src/app/app.module.ts');
     expect(content).toMatch(/import \* as fromFoo from '\.\/reducers';/);
   });
+
+  it('should support a custom state name', () => {
+    const options = { ...defaultOptions, name: 'AppState' };
+
+    const tree = schematicRunner.runSchematic('store', options, appTree);
+    const content = getFileContent(tree, '/src/app/reducers/index.ts');
+    expect(content).toMatch(/export interface AppState {/);
+  });
 });
